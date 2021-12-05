@@ -2,19 +2,12 @@ import {ethers} from 'hardhat';
 import {BigNumber, Contract, Signer} from 'ethers';
 import {expect} from 'chai';
 import {formatEtherscanTx} from '../utils/format';
+import {increaseWorldTimeInSeconds} from '../utils/mine';
 
 let accounts: Signer[];
 let eoa: Signer;
 let contract: Contract; // challenge contract
 let attacker: Contract; // attacker contract
-
-// Utilities methods
-const increaseWorldTimeInSeconds = async (seconds: number, mine = false) => {
-  await ethers.provider.send('evm_increaseTime', [seconds]);
-  if (mine) {
-    await ethers.provider.send('evm_mine', []);
-  }
-};
 
 before(async () => {
   accounts = await ethers.getSigners();
